@@ -50,6 +50,6 @@ VALUES
 -- Insert sample appointments
 INSERT INTO appointments (user_id, slot_id, appointment_time)
 VALUES
-    (1, 1, '2023-11-10 10:00:00'),
-    (3, 2, '2023-11-10 11:00:00'),
-    (4, 4, '2023-11-10 13:00:00');
+    (1, 1, '2023-11-10 09:00:00'),
+    (3, 2, '2023-11-10 10:00:00'),
+    (4, 4, '2023-11-10 11:00:00');
