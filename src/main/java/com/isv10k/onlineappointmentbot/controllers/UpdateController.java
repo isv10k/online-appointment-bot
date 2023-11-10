@@ -29,7 +29,7 @@ public class UpdateController {
 
 //        if (update.hasMessage()) {
         distributeMessagesByType(update);
-            // TODO
+        // TODO
 //        }
     }
 

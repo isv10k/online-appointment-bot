@@ -13,7 +13,6 @@ public class KeyboardConfig {
     public InlineKeyboardMarkup createKeyboardOf(List<TimeSlot> timeSlots) {
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
-
         for (TimeSlot timeSlot : timeSlots) {
             List<InlineKeyboardButton> row = new ArrayList<>();
             InlineKeyboardButton button = new InlineKeyboardButton();
@@ -22,7 +21,6 @@ public class KeyboardConfig {
             row.add(button);
             keyboard.add(row);
         }
-
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
         keyboardMarkup.setKeyboard(keyboard);

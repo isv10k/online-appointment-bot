@@ -2,26 +2,19 @@ package com.isv10k.onlineappointmentbot;
 
 import com.isv10k.onlineappointmentbot.controllers.UpdateController;
 import jakarta.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class OnlineAppointmentBot extends TelegramLongPollingBot {
 
+    private final UpdateController updateController;
     @Value("${bot.name}")
     private String botName;
-
-    private final UpdateController updateController;
 
     public OnlineAppointmentBot(@Value("${bot.token}") final String botToken, UpdateController updateController) {
         super(botToken);

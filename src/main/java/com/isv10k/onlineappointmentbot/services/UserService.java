@@ -7,16 +7,15 @@ import com.isv10k.onlineappointmentbot.models.User;
 import com.isv10k.onlineappointmentbot.repositories.AppointmentRepository;
 import com.isv10k.onlineappointmentbot.repositories.TimeSlotRepository;
 import com.isv10k.onlineappointmentbot.repositories.UserRepository;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 @Service
 public class UserService { // TODO SRP
+
     private final AppointmentRepository appointmentRepository;
     private final TimeSlotRepository timeSlotRepository;
     private final UserRepository userRepository;
