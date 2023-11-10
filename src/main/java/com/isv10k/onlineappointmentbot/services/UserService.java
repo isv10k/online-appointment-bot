@@ -7,6 +7,7 @@ import com.isv10k.onlineappointmentbot.models.User;
 import com.isv10k.onlineappointmentbot.repositories.AppointmentRepository;
 import com.isv10k.onlineappointmentbot.repositories.TimeSlotRepository;
 import com.isv10k.onlineappointmentbot.repositories.UserRepository;
+import com.isv10k.onlineappointmentbot.util.BotText;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,9 @@ public class UserService { // TODO SRP
 
     public SendMessage getAvailableDates(Long id) {
         List<TimeSlot> timeSlots = timeSlotRepository.findTimeSlotByIsAvailableIsTrue();
-        InlineKeyboardMarkup keyboardMarkup = keyboardConfig.createKeyboardOf(timeSlots);
+        InlineKeyboardMarkup keyboardMarkup = keyboardConfig.createTimeSlotsKeyboardOf(timeSlots);
 
-        return createResponse(id, "Choose one of the available time slots", keyboardMarkup);
+        return createResponse(id, BotText.CHOOSE_AVAILABLE.text, keyboardMarkup);
     }
 
     public SendMessage getUserAppointments(Long id) {
@@ -76,7 +77,7 @@ public class UserService { // TODO SRP
         appointmentRepository.save(appointment);
         return createResponse(
             userId,
-            "Your date of an appointment " + saved.getStartTime(),
+            BotText.APPOINTMENT_CONFIRM.text + " " + saved.getStartTime(),
             null);
     }
 
@@ -91,4 +92,23 @@ public class UserService { // TODO SRP
     }
 
 
+    public SendMessage getListOfUserAppointmentsToDelete(Long id) {
+        List<Appointment> appointments = appointmentRepository.findAllByUserId(id);
+        InlineKeyboardMarkup keyboardMarkup = keyboardConfig.createDeleteAppointmentKeyboardOf(appointments);
+
+        return createResponse(id, BotText.CHOOSE_TO_DELETE.text, keyboardMarkup);
+    }
+
+    public SendMessage pickAppointmentToDelete(Long id, Long userId) {
+        Optional<Appointment> optionalAppointmentToDelete = appointmentRepository.findById(id);
+        Appointment appointmentToDelete = optionalAppointmentToDelete.get();
+        appointmentRepository.deleteById(id);
+
+        Optional<TimeSlot> optionalTimeSlotToFree = timeSlotRepository.findById(appointmentToDelete.getTimeSlot().getSlotId());
+        TimeSlot timeSlotToFree = optionalTimeSlotToFree.get();
+        timeSlotToFree.setAvailable(true);
+        timeSlotRepository.save(timeSlotToFree);
+
+        return createResponse(userId, BotText.APPOINTMENT_DELETE.text + " " +appointmentToDelete.getAppointmentTime(), null);
+    }
 }
