@@ -53,7 +53,7 @@ public class Appointment {
     }
 
     public void setAppointmentId(Long id) {
-        this.id = Appointment.this.id;
+        this.id = id;
     }
 
     public User getUser() {

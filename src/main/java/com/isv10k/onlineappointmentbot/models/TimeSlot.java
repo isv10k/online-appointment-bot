@@ -42,7 +42,7 @@ public class TimeSlot {
     }
 
     public void setSlotId(Long id) {
-        this.id = TimeSlot.this.id;
+        this.id = id;
     }
 
     public LocalDateTime getStartTime() {
