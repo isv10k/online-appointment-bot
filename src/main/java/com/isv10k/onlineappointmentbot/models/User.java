@@ -2,6 +2,8 @@ package com.isv10k.onlineappointmentbot.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Objects;
@@ -17,12 +19,13 @@ public class User {
 
     private String username;
 
-    private String email;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public User(Long id, String username, String email) {
+    public User(Long id, String username, Role role) {
         this.id = id;
         this.username = username;
-        this.email = email;
+        this.role = role;
     }
 
     public User() {
@@ -44,12 +47,12 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public Role getRole() {
+        return role;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -62,11 +65,11 @@ public class User {
         }
         User user = (User) o;
         return Objects.equals(id, user.id) && Objects.equals(username, user.username)
-            && Objects.equals(email, user.email);
+            && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email);
+        return Objects.hash(id, username, role);
     }
 }

@@ -1,5 +1,6 @@
 package com.isv10k.onlineappointmentbot;
 
+import com.isv10k.onlineappointmentbot.bot.Bot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,10 +15,9 @@ public class OnlineAppointmentBotApplication {
         ConfigurableApplicationContext ctx = SpringApplication.run(OnlineAppointmentBotApplication.class, args);
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(ctx.getBean("onlineAppointmentBot", OnlineAppointmentBot.class));
+            botsApi.registerBot(ctx.getBean("bot", Bot.class));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -25,6 +25,10 @@ public class Appointment {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "service_provider_id")
+    private User serviceProvider;
+
+    @ManyToOne
     @JoinColumn(name = "slot_id")
     private TimeSlot timeSlot;
 
@@ -38,9 +42,10 @@ public class Appointment {
 //    private LocalDateTime updatedAt;
 
 
-    public Appointment(Long id, User user, TimeSlot timeSlot, LocalDateTime appointmentTime) {
+    public Appointment(Long id, User user, User serviceProvider, TimeSlot timeSlot, LocalDateTime appointmentTime) {
         this.id = id;
         this.user = user;
+        this.serviceProvider = serviceProvider;
         this.timeSlot = timeSlot;
         this.appointmentTime = appointmentTime;
     }
@@ -62,6 +67,14 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public User getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(User serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 
     public TimeSlot getTimeSlot() {
@@ -90,12 +103,12 @@ public class Appointment {
         }
         Appointment that = (Appointment) o;
         return Objects.equals(id, that.id) && Objects.equals(user, that.user)
-            && Objects.equals(timeSlot, that.timeSlot) && Objects.equals(appointmentTime,
-            that.appointmentTime);
+            && Objects.equals(serviceProvider, that.serviceProvider) && Objects.equals(timeSlot,
+            that.timeSlot) && Objects.equals(appointmentTime, that.appointmentTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, timeSlot, appointmentTime);
+        return Objects.hash(id, user, serviceProvider, timeSlot, appointmentTime);
     }
 }
